@@ -64,15 +64,10 @@ class ListaDobleCircularUsuario:
             if  booleano == True:
                 print("Usuario ya existe")
             else:
-
                 self.ultimo.siguiente = nuevoUsuario
                 nuevoUsuario.anterior = self.ultimo
                 nuevoUsuario.siguiente = self.primero
                 self.ultimo = nuevoUsuario
-
-##                aux_ult = self.ultimo
-##                aux_pri = self.primero
-
                 self.longitud = self.longitud + 1
 
     def buscarUsuario(self, nombre):
@@ -103,11 +98,29 @@ class ListaDobleCircularUsuario:
                 raise
 
     def mostrarListadoUsuario(self):
-
-        print("***************")
         aux = self.primero
-        while (aux != None and aux != self.primero):
-            print(aux.verNodoUsuario()+" ->")
+        while (aux != None):
+            print(aux.verNodoUsuario())
             aux = aux.siguiente
+            if aux == self.ultimo:
+                print(aux.verNodoUsuario())
+                break
+
+    def crearArchivoDot(self):
+        self.crearCarpeta()
+        fileNameArchivo = self.Path + "listadoDobleCircularUsuarios.dot"
+        archivoListadoDobleCircular = open(fileNameArchivo, 'w')
+        archivoListadoDobleCircular.write(("digraph Arbol {node [shape=rectangle];\n"))
+        self.generarListado(archivoListadoDobleCircular)
+        archivoListadoDobleCircular.write('}')
+        archivoListadoDobleCircular.close()
+
+    def generarListado(self, archivo):
+        print "ssss"
+
+    def verImagen(self):
+        miComandooo = 'dot -Tgif '+ self.Path+'listadoDobleCircularUsuarios.dot -o '+self.Path+'listadoDobleCircularUsuarios.jpg'
+        os.system(miComandooo)
+        os.popen(self.Path+'listadoDobleCircularUsuarios.jpg')
 
 

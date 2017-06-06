@@ -18,4 +18,4 @@ class NodoUsuario:
         self.anterior = None
 
     def verNodoUsuario(self):
-        return {"NameUsuario": self.nombreUsuario, "Contrasenia": str(self.Contrasenia)}
+        return {"Nickname": self.nombreUsuario,"password ": str(self.passUsuario)}
