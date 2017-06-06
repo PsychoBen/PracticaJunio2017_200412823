@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿[PyScripter]
 Version=2.6.0.0
 
@@ -18,3 +19,25 @@ Count=2
 [Project\ExtraPythonPath]
 Count=0
 
+=======
+﻿[PyScripter]
+Version=2.6.0.0
+
+[Project]
+ClassName=TProjectRootNode
+StoreRelativePaths=TRUE
+ShowFileExtensions=FALSE
+
+[Project\ChildNodes\Node0]
+ClassName=TProjectFilesNode
+
+[Project\ChildNodes\Node1]
+ClassName=TProjectRunConfiguationsNode
+
+[Project\ChildNodes]
+Count=2
+
+[Project\ExtraPythonPath]
+Count=0
+
+>>>>>>> origin/master
