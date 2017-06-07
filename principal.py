@@ -12,6 +12,10 @@
 import cmd
 import copy
 import NodoUsuario
+import NodoOperacion
+import ColaDeOperaciones
+import PilaDeOperaciones
+import NodoPilaOperaciones
 import ListaDobleCircularUsuario
 
 
@@ -27,7 +31,10 @@ def main():
     miListaUsuarios.insertarUsuarioFinal("a4","pass1")
     longi = miListaUsuarios.obtenerLongitud()
     print longi
-    miListaUsuarios.mostrarListadoUsuario()
+##    miListaUsuarios.mostrarListadoUsuario()
+    miPilaOperaciones = PilaDeOperaciones.PilaDeOperaciones()
+    miPilaOperaciones.agregarCosas()
+    miListaUsuarios.mostrarListadoNicks()
 
 
 if __name__ == '__main__':

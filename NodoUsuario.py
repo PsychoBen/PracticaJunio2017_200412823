@@ -19,3 +19,7 @@ class NodoUsuario:
 
     def verNodoUsuario(self):
         return {"Nickname": self.nombreUsuario,"password ": str(self.passUsuario)}
+
+    def verNickName(self):
+        nick = self.nombreUsuario
+        return nick

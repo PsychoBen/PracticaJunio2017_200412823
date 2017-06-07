@@ -106,6 +106,16 @@ class ListaDobleCircularUsuario:
                 print(aux.verNodoUsuario())
                 break
 
+
+    def mostrarListadoNicks(self):
+        aux = self.primero
+        while (aux != None):
+            print(aux.verNickName())
+            aux = aux.siguiente
+            if aux == self.ultimo:
+                print(aux.verNickName())
+                break
+
     def crearArchivoDot(self):
         self.crearCarpeta()
         fileNameArchivo = self.Path + "listadoDobleCircularUsuarios.dot"
