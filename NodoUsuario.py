@@ -16,6 +16,7 @@ class NodoUsuario:
         self.passUsuario = passUsuario
         self.siguiente = None
         self.anterior = None
+        self.archivoCargado = False
         self.colaOperacionesUser = None
         self.matrizUsuario = None
         self.matrizTranspuesta = None

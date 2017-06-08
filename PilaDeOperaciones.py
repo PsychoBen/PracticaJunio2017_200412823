@@ -9,6 +9,8 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
+
+import Matriz
 import NodoPilaOperaciones
 
 class PilaDeOperaciones:

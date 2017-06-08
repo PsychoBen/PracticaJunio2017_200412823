@@ -56,7 +56,10 @@ class ColaDeOperaciones:
             aux = self.primeroCola
             cadena = ""
             while aux !=None:
-                cadena = cadena + " -> " + str(aux.operacion)
+                if aux == self.primeroCola:
+                    cadena = str(aux.operacion)
+                else:
+                    cadena = cadena + " -> " + str(aux.operacion)
                 aux = aux.siguienteOperacion
             print cadena
 

@@ -9,6 +9,10 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
+import Matriz
+import NodoOperacion
+import ColaDeOperaciones
+
 class Archivos:
     def __init__(self):
         pass
@@ -23,25 +27,48 @@ class Archivos:
             linea = archivoEntrada.readline()
         archivoEntrada.close()
 
-    def analisarPalabraPruebas(self, palabra):
-        if(palabra=="<archivo>"):
-            print "inicio archivo"
-        elif(palabra=="</archivo>"):
-            print "fin archivo"
-        elif(palabra=="<matriz>"):
-            print "inicio matriz"
-        elif(palabra=="</matriz>"):
-            print "fin matriz"
-        elif(palabra=="<operaciones>"):
-            print "inicio operaciones"
-        elif(palabra=="</operaciones>"):
-            print "fin operaciones"
-        elif(palabra=="<operacion>"):
-            print "inicio operacion"
-        elif(palabra=="</operacion>"):
-            print "fin operacion"
-        else:
-            print "puta"
+    def leerArchivoEntradaCompleto(self, pathArchivo):
+        archivoEntrada = open(pathArchivo)
+        contenido = ""
+        contenido = archivoEntrada.read()
+        archivoEntrada.close()
+        return contenido
+
+    def obtenerTamanioMatriz(self, contenido):
+        filcol = ""
+        separadorMatriz = contenido.split("</matriz>")
+        matriz = ""
+        matriz = separadorMatriz[0]
+        separadorMatriz = matriz.split("<matriz>")
+        matriz = separadorMatriz[1]
+        fila = ""
+        columnas = ""
+        separadorMatriz = matriz.split("</x>")
+        fila = separadorMatriz[0]
+        columnas = separadorMatriz[1]
+        separadorMatriz = fila.split()
+        fila = separadorMatriz[1]
+        separadorMatriz = columnas.split()
+        columnas = separadorMatriz[1]
+        filcol = fila + "," + columnas
+        return filcol
+
+    def obtenerOperacionesDesdeArchivo(self, contenido):
+        listaOpera = ""
+        separadorOperacion = contenido.split("</matriz>")
+        operacio = ""
+        operacio = separadorOperacion[1]
+        separadorOperacion = operacio.split("</operaciones>")
+        operacio = separadorOperacion[0]
+        separadorOperacion = operacio.split("<operaciones>")
+        operacio = separadorOperacion[1]
+        operacio = operacio.replace("<operacion>", "")
+        operacio = operacio.replace("</operacion>", ",")
+        listaOpera = operacio
+        return listaOpera
+
+
+
 
 
 

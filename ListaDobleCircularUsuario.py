@@ -23,6 +23,33 @@ class ListaDobleCircularUsuario:
         self.longitud = 0
         self.Path="C:/Proyecto/EDDVacasJunio/"
 
+    def ingresarSistema(self, nickname, clave):
+        loguear = False
+        auxx = self.primero
+        nickname = nickname.upper()
+        if nickname == auxx.nombreUsuario.upper() and clave==auxx.passUsuario:
+            loguear = True
+        else:
+            auxx = self.primero
+            auxx = auxx.siguiente
+            while (auxx != None and auxx != self.primero):
+                nomm1 = auxx.nombreUsuario
+                nomm1 = nomm1.upper()
+                clav1 = auxx.passUsuario
+                if nomm1 == nickname and clav1 == clave:
+                    loguear = True
+                    break
+                elif auxx == self.primero:
+                    loguear = True
+                    break
+                else :
+                    auxx = auxx.siguiente
+        if loguear == False:
+            print "******************************"
+            print "    Datos no son correctos   "
+        return loguear
+
+
     def verificarUsuarioExiste(self, nombre):
         encontrado = False
         auxx = self.primero
@@ -43,8 +70,8 @@ class ListaDobleCircularUsuario:
                     break
                 else :
                     auxx = auxx.siguiente
-        if encontrado == False:
-            print "No se encontro el Usuario"
+##        if encontrado == False:
+##            print "No se encontro el Usuario"
         return encontrado
 
     def estaVacia(self):
@@ -59,6 +86,9 @@ class ListaDobleCircularUsuario:
             self.primero = nuevoUsuario
             self.ultimo = nuevoUsuario
             self.longitud = self.longitud + 1
+            print ("********************************")
+            print ("    Usuario creado con Exito    ")
+            print ("********************************")
         else:
             booleano = self.verificarUsuarioExiste(nombreUser)
             if  booleano == True:
@@ -71,6 +101,10 @@ class ListaDobleCircularUsuario:
                 nuevoUsuario.siguiente = self.primero
                 self.ultimo = nuevoUsuario
                 self.longitud = self.longitud + 1
+                print ("********************************")
+                print ("    Usuario creado con Exito    ")
+                print ("********************************")
+
 
     def buscarUsuario(self, nombre):
         encontrado = None
@@ -87,8 +121,6 @@ class ListaDobleCircularUsuario:
         if encontrado==None:
             print "No se encontro el Usuario"
         return encontrado
-
-
 
     def obtenerLongitud(self):
         return self.longitud
@@ -108,7 +140,6 @@ class ListaDobleCircularUsuario:
                 print(aux.verNodoUsuario())
                 break
 
-
     def mostrarListadoNicks(self):
         aux = self.primero
         while (aux != None):
@@ -117,6 +148,42 @@ class ListaDobleCircularUsuario:
             if aux == self.ultimo:
                 print(aux.verNickName())
                 break
+
+    def mostrarListadoNicksAdelante(self):
+        cadena =""
+##        aux = self.primero
+        if self.estaVacia () == True:
+            print "Lista Vacia"
+        else:
+            aux = self.primero
+
+            while aux != self.ultimo:
+                if aux == self.primero:
+                    cadena = aux.nombreUsuario
+                else:
+                    cadena = cadena + " -> " + aux.nombreUsuario
+                aux = aux.siguiente
+        cadena = cadena + " -> " + self.ultimo.nombreUsuario
+        cadena = cadena + " -> " + self.primero.nombreUsuario
+        return cadena
+
+    def mostrarListadoNicksAtras(self):
+        cadena =""
+##        aux = self.primero
+        if self.estaVacia () == True:
+            print "Lista Vacia"
+        else:
+            aux = self.ultimo
+
+            while aux != self.primero:
+                if aux == self.ultimo:
+                    cadena = aux.nombreUsuario
+                else:
+                    cadena = cadena + " -> " + aux.nombreUsuario
+                aux = aux.anterior
+        cadena = cadena + " -> " + self.primero.nombreUsuario
+        cadena = cadena + " -> " + self.ultimo.nombreUsuario
+        return cadena
 
     def crearArchivoDot(self):
         self.crearCarpeta()
