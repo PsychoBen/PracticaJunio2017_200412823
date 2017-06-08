@@ -16,6 +16,10 @@ class NodoUsuario:
         self.passUsuario = passUsuario
         self.siguiente = None
         self.anterior = None
+        self.colaOperacionesUser = None
+        self.matrizUsuario = None
+        self.matrizTranspuesta = None
+
 
     def verNodoUsuario(self):
         return {"Nickname": self.nombreUsuario,"password ": str(self.passUsuario)}
@@ -23,3 +27,12 @@ class NodoUsuario:
     def verNickName(self):
         nick = self.nombreUsuario
         return nick
+
+    def obtenerColaUsuario(self):
+        return self.colaOperacionesUser
+
+    def obtenerMatrizUsuario(self):
+        return self.matrizUsuario
+
+    def obtenerMatrizTranpuesta(self):
+        return self.matrizTranspuesta

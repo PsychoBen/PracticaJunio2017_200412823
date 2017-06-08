@@ -27,23 +27,36 @@ class PilaDeOperaciones:
     ##inserta en el inicio o top de la pila
     def insertarNodoPilaOperaciones(self, valor, operador):
         nuevoNodoPila = NodoPilaOperaciones.NodoPilaOperaciones(valor, operador)
-        if estaVaciaPilaOperaciones==True:
+        if self.estaVaciaPilaOperaciones==True:
             self.primeroPila = nuevoNodoPila
             self.ultimoPila = nuevoNodoPila
             self.tamanioPila = self.tamanioPila + 1
         else:
             nuevoNodoPila.siguiente = self.primeroPila
-            self.primeroPila.anterior = nuevoNodoPila
+##            self.primeroPila.anterior = nuevoNodoPila
             self.primeroPila = nuevoNodoPila
             self.tamanioPila = self.tamanioPila + 1
 
     def eliminarNodoPilaOperaciones(self):
         if self.estaVaciaPilaOperaciones() == False:
             self.primeroPila = self.primeroPila.siguiente
-            self.primeroPila.anterior = None
+##            self.primeroPila.anterior = None
             self.tamanioPila = self.tamanioPila - 1
         else:
             print "cola de operaciones vacia"
+
+    def mostrarPilaOperaciones(self):
+        if self.estaVaciaPilaOperaciones()==True:
+            print "La lista esta vacia"
+        else:
+            aux = self.primeroPila
+            cadena = " "
+            while aux != None:
+                cadena = cadena + " -> " + str(aux.valor)
+                aux = aux.siguiente
+            print cadena
+
+
 
 
 

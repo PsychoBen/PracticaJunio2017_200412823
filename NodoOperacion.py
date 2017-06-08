@@ -9,10 +9,14 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
+import PilaDeOperaciones
+import NodoPilaOperaciones
+
 class NodoOperacion:
 
     def __init__(self, operacion):
         self.operacion = operacion
+        self.pilaOperacion = None
         self.siguienteOperacion = None
         self.anteriorOperacion = None
 

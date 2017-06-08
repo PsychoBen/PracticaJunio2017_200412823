@@ -62,7 +62,9 @@ class ListaDobleCircularUsuario:
         else:
             booleano = self.verificarUsuarioExiste(nombreUser)
             if  booleano == True:
-                print("Usuario ya existe")
+                print ("********************************")
+                print("   ERROR!!! Usuario ya existe    ")
+                print ("********************************")
             else:
                 self.ultimo.siguiente = nuevoUsuario
                 nuevoUsuario.anterior = self.ultimo

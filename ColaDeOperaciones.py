@@ -49,4 +49,17 @@ class ColaDeOperaciones:
     def getTamanioColaOperaciones(self):
         return self.tamanioCola
 
+    def mostrarColaDeOperaciones(self):
+        if self.estaVaciaColaOperaciones()==True:
+            print "La cola de operaciones esta vacia"
+        else:
+            aux = self.primeroCola
+            cadena = ""
+            while aux !=None:
+                cadena = cadena + " -> " + str(aux.operacion)
+                aux = aux.siguienteOperacion
+            print cadena
+
+
+
 
