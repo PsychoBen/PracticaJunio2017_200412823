@@ -39,13 +39,34 @@ class PilaDeOperaciones:
             self.primeroPila = nuevoNodoPila
             self.tamanioPila = self.tamanioPila + 1
 
+    def insertarNodoPilaOperacionesFinal(self, valor, operador):
+        nuevoNodoPila = NodoPilaOperaciones.NodoPilaOperaciones(valor, operador)
+        if operador == "*" or operador == "-" or operador =="+":
+            oper1 = self.eliminarNodoPilaOperaciones()
+            oper2 = self.eliminarNodoPilaOperaciones()
+            print "Operando: "+ str(oper1) + str(operador) + str(oper2)
+            self.hacerOperacionPila(oper1, oper2, operador)
+        else:
+            if self.estaVaciaPilaOperaciones==True:
+                self.primeroPila = nuevoNodoPila
+                self.ultimoPila = nuevoNodoPila
+                self.tamanioPila = self.tamanioPila + 1
+            else:
+                nuevoNodoPila.siguiente = self.primeroPila
+    ##            self.primeroPila.anterior = nuevoNodoPila
+                self.primeroPila = nuevoNodoPila
+                self.tamanioPila = self.tamanioPila + 1
+
     def eliminarNodoPilaOperaciones(self):
+        operando = 0
         if self.estaVaciaPilaOperaciones() == False:
             self.primeroPila = self.primeroPila.siguiente
 ##            self.primeroPila.anterior = None
+            operando = self.primeroPila.valor
             self.tamanioPila = self.tamanioPila - 1
         else:
             print "cola de operaciones vacia"
+        return operando
 
     def mostrarPilaOperaciones(self):
         if self.estaVaciaPilaOperaciones()==True:
@@ -57,6 +78,15 @@ class PilaDeOperaciones:
                 cadena = cadena + " -> " + str(aux.valor)
                 aux = aux.siguiente
             print cadena
+
+    def hacerOperacionPila(self, operando1, operando2, operador):
+        resultado = 0
+        if operador == "+":
+            resultado = operando1 + operando2
+        elif operador  == "-":
+            resultado == operando1 - operando2
+        elif operador == "*":
+            resultado = operando1 * operando2
 
 
 

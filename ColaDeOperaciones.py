@@ -33,12 +33,28 @@ class ColaDeOperaciones:
 
     ##elimina al inicio de la cola
     def eliminarElementoColaOperaciones(self):
+        cadenaOperacion = ""
         if self.estaVaciaColaOperaciones() == False:
+            cadenaOperacion = self.primeroCola.operacion
             self.primeroCola = self.primeroCola.siguienteOperacion
             self.primeroCola.anteriorOperacion = None
             self.tamanioCola = self.tamanioCola - 1
         else:
             print "cola de operaciones vacia"
+        return cadenaOperacion
+
+    def obtenerElementoEliminarElementoColaOperaciones(self):
+        noditoCola = None
+        if self.estaVaciaColaOperaciones() == False:
+            cadenaOperacion = self.primeroCola.operacion
+            noditoCola = self.primeroCola
+            self.primeroCola = self.primeroCola.siguienteOperacion
+            self.primeroCola.anteriorOperacion = None
+            self.tamanioCola = self.tamanioCola - 1
+
+        else:
+            print "cola de operaciones vacia"
+        return noditoCola
 
     def estaVaciaColaOperaciones(self):
         if self.primeroCola == None:

@@ -9,6 +9,10 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
+import NodoOperacion
+import ColaDeOperaciones
+
+
 class NodoUsuario:
 
     def __init__(self, nombreUsuario, passUsuario):
@@ -17,7 +21,7 @@ class NodoUsuario:
         self.siguiente = None
         self.anterior = None
         self.archivoCargado = False
-        self.colaOperacionesUser = None
+        self.colaOperacionesUser = ColaDeOperaciones.ColaDeOperaciones()
         self.matrizUsuario = None
         self.matrizTranspuesta = None
 

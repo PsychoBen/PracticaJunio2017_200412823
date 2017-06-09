@@ -12,11 +12,12 @@
 import PilaDeOperaciones
 import NodoPilaOperaciones
 
+
 class NodoOperacion:
 
     def __init__(self, operacion):
         self.operacion = operacion
-        self.pilaOperacion = None
+        self.pilaOperacion = PilaDeOperaciones.PilaDeOperaciones()
         self.siguienteOperacion = None
         self.anteriorOperacion = None
 

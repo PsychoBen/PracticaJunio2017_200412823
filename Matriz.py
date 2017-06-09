@@ -47,6 +47,14 @@ class Matriz:
         for fiilla in self.transpuesta:
             print fiilla
 
+    def operarMatrizTranspuesta(self):
+        print "************  transpuesta   **************"
+        for col in range(self.columnas):
+            for fil in range(self.filas):
+                self.transpuesta[col][fil] = self.matriz[fil][col]
+##        for fiilla in self.transpuesta:
+##            print fiilla
+
     def ingresarValorMatriz(self, fil, col, valor):
         self.matriz[fil][col] = valor
 
