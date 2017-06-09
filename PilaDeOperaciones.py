@@ -42,10 +42,12 @@ class PilaDeOperaciones:
     def insertarNodoPilaOperacionesFinal(self, valor, operador):
         nuevoNodoPila = NodoPilaOperaciones.NodoPilaOperaciones(valor, operador)
         if operador == "*" or operador == "-" or operador =="+":
-            oper1 = self.eliminarNodoPilaOperaciones()
             oper2 = self.eliminarNodoPilaOperaciones()
-            print "Operando: "+ str(oper1) + str(operador) + str(oper2)
-            self.hacerOperacionPila(oper1, oper2, operador)
+            oper1 = self.eliminarNodoPilaOperaciones()
+            resultado = 0
+            resultado = self.hacerOperacionPila(oper1, oper2, operador)
+            print "Realizando operacion: "+ str(oper1) + " " + str(operador) + " " + str(oper2) +" = " + str(resultado)
+            self.insertarNodoPilaOperacionesFinal(resultado, "0")
         else:
             if self.estaVaciaPilaOperaciones==True:
                 self.primeroPila = nuevoNodoPila
@@ -60,9 +62,11 @@ class PilaDeOperaciones:
     def eliminarNodoPilaOperaciones(self):
         operando = 0
         if self.estaVaciaPilaOperaciones() == False:
+            aux = self.primeroPila
+            operando = aux.valor
             self.primeroPila = self.primeroPila.siguiente
 ##            self.primeroPila.anterior = None
-            operando = self.primeroPila.valor
+
             self.tamanioPila = self.tamanioPila - 1
         else:
             print "cola de operaciones vacia"
@@ -84,9 +88,10 @@ class PilaDeOperaciones:
         if operador == "+":
             resultado = operando1 + operando2
         elif operador  == "-":
-            resultado == operando1 - operando2
+            resultado = operando1 - operando2
         elif operador == "*":
             resultado = operando1 * operando2
+        return resultado
 
 
 

@@ -17,10 +17,20 @@ import Matriz
 import Archivos
 import NodoUsuario
 import NodoOperacion
-import ColaDeOperaciones
 import PilaDeOperaciones
+import ColaDeOperaciones
 import NodoPilaOperaciones
 import ListaDobleCircularUsuario
+
+def validarEntradaCorrectaNumero(mensaje):
+    valor1 = 999
+    try:
+        valor1=int(raw_input(mensaje))
+    except ValueError:
+        print "**********************************"
+        print "    Ingrese un Numero entero      "
+        print "**********************************"
+    return valor1
 
 def main():
 
@@ -42,13 +52,13 @@ def main():
 
         if opcionPrincipal == 1:
             print("Creando Usuario")
-            nombre = raw_input("Ingrese Nombre")
-            password = raw_input("Ingrese Password")
+            nombre = raw_input("Ingrese Nombre:   ")
+            password = raw_input("Ingrese Password:   ")
             miListaUsuarios.insertarUsuarioFinal(nombre,password)
 
         elif opcionPrincipal ==2:  ##Ingresa al sistema
-            nick = raw_input("Ingrese Usuario")
-            clave = raw_input("Ingrese Password")
+            nick = raw_input("Ingrese Usuario:   ")
+            clave = raw_input("Ingrese Password:   ")
             if (miListaUsuarios.ingresarSistema(nick, clave)):
                 sessionIniciada = True
                 opcionUsuario = 0
@@ -58,7 +68,7 @@ def main():
                     opcionUsuario = menu.menu_usuario()
 
                     if opcionUsuario == 1:
-                        pathArchivo = raw_input("Ingrese el nombre del archivo")
+                        pathArchivo = raw_input("Ingrese el nombre del archivo:   ")
                         miMatriz = Matriz.Matriz()
                         miArchivo = Archivos.Archivos()
                         contenidoArchivo = miArchivo.leerArchivoEntradaCompleto(pathArchivo)
@@ -80,8 +90,18 @@ def main():
                             print "*********************************************"
                         operaciones= miArchivo.obtenerOperacionesDesdeArchivo(contenidoArchivo)
                         listadoOperaciones = operaciones.split(",")
+                        cadActual = ""
                         for opera in listadoOperaciones:
-                            usuarioActual.colaOperacionesUser.insertaElementoColaOperaciones(opera)
+                            operacionChain = ""
+                            cadActual = opera
+                            cadActual = cadActual.split()
+                            for cd in cadActual:
+                                if operacionChain=="":
+                                    operacionChain = cd
+                                else:
+                                    operacionChain = operacionChain + " " +cd
+                            if operacionChain != "":
+                                usuarioActual.colaOperacionesUser.insertaElementoColaOperaciones(operacionChain)
                         print "***************************"
                         print "   Operacion Ingresada     "
                         print "***************************"
@@ -90,25 +110,38 @@ def main():
                         print "***************************"
 
                     elif opcionUsuario == 2:
-                        print "resolver operaciones"
+                        print "***************************"
+                        print "     Resolver Operacion    "
+                        print "***************************"
                         opcionRevolverOperaciones = 0
                         while (opcionRevolverOperaciones!=2):
                             opcionRevolverOperaciones = menu.menu_operacion()
                             if opcionRevolverOperaciones == 1:
-                                print "resolviendo siguiente operacion"
-                                operacionActual = ""
-                                operacionActual = usuarioActual.colaOperacionesUser.eliminarElementoColaOperaciones()
-                                operacionActual = operacionActual.split()
-                                nodoOperacionActual = usuarioActual.colaOperacionesUser.obtenerElementoEliminarElementoColaOperaciones()
-                                print nodoOperacionActual.operacion
-                                for elemento in operacionActual:
-                                    if elemento !="+" and elemento !="-" and elemento !="*":
-                                        datoo = int(elemento)
-                                        nodoOperacionActual.pilaOperacion.insertarNodoPilaOperacionesFinal(datoo, elemento)
-                                    else:
-                                        datoo = int(elemento)
-                                        nodoOperacionActual.pilaOperacion.insertarNodoPilaOperacionesFinal(datoo, elemento)
-
+                                if usuarioActual.colaOperacionesUser.tamanioCola > 0:
+##                                    print "resolviendo siguiente Operacion"
+                                    operacionActual = ""
+                                    nodoOperacionActual = usuarioActual.colaOperacionesUser.obtenerElementoEliminarElementoColaOperaciones()
+    ##                                operacionActual = usuarioActual.colaOperacionesUser.eliminarElementoColaOperaciones()
+                                    operacionActual = nodoOperacionActual.operacion
+                                    operacionActual = operacionActual.split()
+                                    print nodoOperacionActual.operacion
+                                    for elemento in operacionActual:
+                                        if elemento !="+" and elemento !="-" and elemento !="*":
+                                            datoo = int(elemento)
+                                            nodoOperacionActual.pilaOperacion.insertarNodoPilaOperacionesFinal(datoo, elemento)
+                                        else:
+    ##                                        datoo = int(elemento)
+                                            nodoOperacionActual.pilaOperacion.insertarNodoPilaOperacionesFinal(0, elemento)
+                                    print "******************************************"
+                                    resulFinal = 0
+                                    print "Al realizar la operacion: " + nodoOperacionActual.operacion
+                                    resulFinal = nodoOperacionActual.pilaOperacion.primeroPila.valor
+                                    print "El resultado es: " + str(resulFinal)
+                                    print "******************************************"
+                                else:
+                                    print "***************************"
+                                    print "     No hay Operaciones    "
+                                    print "***************************"
                         print "***************************"
                         print "Regresando a menu Operacion"
                         print "***************************"
@@ -123,9 +156,24 @@ def main():
                                 print "***************************"
                                 print " Ingresando dato en matriz "
                                 print "***************************"
-                                posX = int(raw_input("Ingrese posicion X"))
-                                posY = int(raw_input("Ingrese posicion Y"))
-                                valorIngresar = int(raw_input("Ingrese el valor a ingresar X"))
+                                mensaje = "Ingrese posicion X:   "
+                                posX = validarEntradaCorrectaNumero(mensaje)
+                                while posX == 999:
+                                    mensaje = "Ingrese posicion X:   "
+                                    posX = validarEntradaCorrectaNumero(mensaje)
+##                                posX = int(raw_input("Ingrese posicion X:   "))
+                                mensaje = "Ingrese posicion Y:   "
+                                posY = validarEntradaCorrectaNumero(mensaje)
+                                while posY == 999:
+                                    mensaje = "Ingrese posicion Y:   "
+                                    posY = validarEntradaCorrectaNumero(mensaje)
+##                                posY = int(raw_input("Ingrese posicion Y:   "))
+                                mensaje = "Ingrese el valor a ingresar X:   "
+                                valorIngresar = validarEntradaCorrectaNumero(mensaje)
+                                while posX == 999:
+                                    mensaje = "Ingrese el valor a ingresar X:   "
+                                    valorIngresar = validarEntradaCorrectaNumero(mensaje)
+##                                valorIngresar = int(raw_input("Ingrese el valor a ingresar X:   "))
                                 usuarioActual.matrizUsuario.ingresarValorMatriz(posX, posY, valorIngresar)
                                 print "***************************"
                                 print "      Dato Ingresado       "
@@ -170,6 +218,7 @@ def main():
                         print " Mostrar Cola de Operaciones "
                         print "*****************************"
                         usuarioActual.colaOperacionesUser.mostrarColaDeOperaciones()
+                        usuarioActual.colaOperacionesUser.mostrarColaDeOperacionesOtra()
                         print "********************************************************"
 
                 sessionIniciada == False
@@ -185,38 +234,6 @@ def main():
     print "Hasta Pronto!!!"
 
 ## hasta aca
-
-
-
-##    miListaUmenusuarios = ListaDobleCircularUsuario.ListaDobleCircularUsuario()
-##    miListaUsuarios.crearCarpeta()
-##    miListaUsuarios.insertarUsuarioFinal("a1","pass1")
-##    miListaUsuarios.insertarUsuarioFinal("a1","pass1")
-##    miListaUsuarios.insertarUsuarioFinal("a1","pass1")
-##    miListaUsuarios.insertarUsuarioFinal("a2","pass1")
-##    miListaUsuarios.insertarUsuarioFinal("a3","pass1")
-##    miListaUsuarios.insertarUsuarioFinal("a3","pass1")
-##    miListaUsuarios.insertarUsuarioFinal("a4","pass1")
-##    longi = miListaUsuarios.obtenerLongitud()
-##    print longi
-##    miListaUsuarios.mostrarListadoUsuario()
-##    miPilaOperaciones = PilaDeOperaciones.PilaDeOperaciones()
-##    miPilaOperaciones.mostrarPilaOperaciones()
-##    print "************************************"
-##    miPilaOperaciones.insertarNodoPilaOperaciones(55, "+")
-##    miPilaOperaciones.insertarNodoPilaOperaciones(60, "*")
-##    miPilaOperaciones.insertarNodoPilaOperaciones(5, "*")
-##    miPilaOperaciones.insertarNodoPilaOperaciones(51, "-")
-##    miPilaOperaciones.mostrarPilaOperaciones()
-##    print miPilaOperaciones.tamanioPila
-##    miPilaOperaciones.eliminarNodoPilaOperaciones()
-##    print "************************************"
-##    miPilaOperaciones.mostrarPilaOperaciones()
-##    print miPilaOperaciones.tamanioPila
-##    miPilaOperaciones.agregarCosas()
-##    miListaUsuarios.mostrarListadoNicks()
-
-
 
 
 if __name__ == '__main__':

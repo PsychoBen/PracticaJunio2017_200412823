@@ -13,7 +13,6 @@ class Menus:
     def __init__(self):
         print ""
 
-
     def menu_principal(self):
         print "Bienvenido al Sistema Practica 1"
         print "**********************************"
@@ -22,7 +21,9 @@ class Menus:
         print "1.  Crear Usuario "
         print "2.  Ingresar al Sistema"
         print "3.  Salir del Programa"
-        opcion = input("Menu principal")
+        mensaje = "Menu principal:   "
+        opcion = self.validarEntradaNumero(mensaje)
+##        opcion = input("Menu principal:   ")
         return opcion
 
     def menu_usuario(self):
@@ -35,7 +36,9 @@ class Menus:
         print "4. Mostrar Usuarios"
         print "5. Mostrar Cola"
         print "6. Cerrar Session"
-        opcion = input("Operaciones de Usuario")
+        mensaje = "Operaciones de Usuario:   "
+        opcion = self.validarEntradaNumero(mensaje)
+##        opcion = input("Operaciones de Usuario:   ")
         return opcion
 
     def menu_operacion(self):
@@ -44,7 +47,9 @@ class Menus:
         print "**********************************"
         print "1. Operar Siguiente"
         print "2. Regresar"
-        opcion = input("Resolver Operaciones")
+        mensaje = "Resolver Operaciones:   "
+        opcion = self.validarEntradaNumero(mensaje)
+##        opcion = input("Resolver Operaciones:   ")
         return opcion
 
     def menu_matriz(self):
@@ -56,6 +61,18 @@ class Menus:
         print "3. Mostrar Matriz Original"
         print "4. Mostrar Martiz Transpuesta"
         print "5. Regresar"
-        opcion = input("Operar la Matriz")
+        mensaje = "Operar la Matriz:   "
+        opcion = self.validarEntradaNumero(mensaje)
+##        opcion = input("Operar la Matriz:   ")
         return opcion
+
+    def validarEntradaNumero(self, mensaje):
+        valor1 = 999
+        try:
+            valor1=int(raw_input(mensaje))
+        except ValueError:
+            print "**********************************"
+            print "    Ingrese un Numero entero      "
+            print "**********************************"
+        return valor1
 

@@ -27,7 +27,7 @@ class ColaDeOperaciones:
             self.tamanioCola = self.tamanioCola + 1
         else:
             self.ultimoCola.siguienteOperacion = nuevaOperacion
-            nuevaOperacion.anteriorOperacion = self.ultimoCola
+##            nuevaOperacion.anteriorOperacion = self.ultimoCola
             self.ultimoCola = nuevaOperacion
             self.tamanioCola = self.tamanioCola + 1
 
@@ -37,7 +37,7 @@ class ColaDeOperaciones:
         if self.estaVaciaColaOperaciones() == False:
             cadenaOperacion = self.primeroCola.operacion
             self.primeroCola = self.primeroCola.siguienteOperacion
-            self.primeroCola.anteriorOperacion = None
+##            self.primeroCola.anteriorOperacion = None
             self.tamanioCola = self.tamanioCola - 1
         else:
             print "cola de operaciones vacia"
@@ -49,7 +49,7 @@ class ColaDeOperaciones:
             cadenaOperacion = self.primeroCola.operacion
             noditoCola = self.primeroCola
             self.primeroCola = self.primeroCola.siguienteOperacion
-            self.primeroCola.anteriorOperacion = None
+##            self.primeroCola.anteriorOperacion = None
             self.tamanioCola = self.tamanioCola - 1
 
         else:
@@ -75,9 +75,25 @@ class ColaDeOperaciones:
                 if aux == self.primeroCola:
                     cadena = str(aux.operacion)
                 else:
-                    cadena = cadena + " -> " + str(aux.operacion)
+                    if str(aux.operacion)=="":
+                        cadena = cadena
+                    else:
+                        cadena = cadena + " -> " + str(aux.operacion)
                 aux = aux.siguienteOperacion
             print cadena
+
+    def mostrarColaDeOperacionesOtra(self):
+        contador = 0
+        if self.estaVaciaColaOperaciones()==True:
+            print "La cola de operaciones esta vacia"
+        else:
+            aux = self.primeroCola
+            while aux !=None:
+                cadena = "Operacion indice " + str(contador) + ": " + str(aux.operacion)
+                print cadena
+                contador = contador + 1
+                aux = aux.siguienteOperacion
+
 
 
 
