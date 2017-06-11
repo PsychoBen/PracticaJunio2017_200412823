@@ -56,7 +56,16 @@ class Matriz:
 ##            print fiilla
 
     def ingresarValorMatriz(self, fil, col, valor):
-        self.matriz[fil][col] = valor
+        sePudo = False
+        if fil >= 0 and fil < self.filas and col >= 0 and col < self.columnas:
+            self.matriz[fil][col] = valor
+            sePudo = True
+        else:
+            print "**********************************************"
+            print "         No se puede ingresar el valor        "
+            print "   Las coordenadas estan fuera de la matriz   "
+            print "**********************************************"
+        return sePudo
 
 
 

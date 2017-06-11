@@ -23,7 +23,7 @@ import NodoPilaOperaciones
 import ListaDobleCircularUsuario
 
 def validarEntradaCorrectaNumero(mensaje):
-    valor1 = 999
+    valor1 = -999
     try:
         valor1=int(raw_input(mensaje))
     except ValueError:
@@ -173,26 +173,27 @@ def main():
                                     print "***************************"
                                     mensaje = "Ingrese posicion X:   "
                                     posX = validarEntradaCorrectaNumero(mensaje)
-                                    while posX == 999:
+                                    while posX == -999:
                                         mensaje = "Ingrese posicion X:   "
                                         posX = validarEntradaCorrectaNumero(mensaje)
     ##                                posX = int(raw_input("Ingrese posicion X:   "))
                                     mensaje = "Ingrese posicion Y:   "
                                     posY = validarEntradaCorrectaNumero(mensaje)
-                                    while posY == 999:
+                                    while posY == -999:
                                         mensaje = "Ingrese posicion Y:   "
                                         posY = validarEntradaCorrectaNumero(mensaje)
     ##                                posY = int(raw_input("Ingrese posicion Y:   "))
                                     mensaje = "Ingrese el valor a ingresar X:   "
                                     valorIngresar = validarEntradaCorrectaNumero(mensaje)
-                                    while posX == 999:
+                                    while posX == -999:
                                         mensaje = "Ingrese el valor a ingresar X:   "
                                         valorIngresar = validarEntradaCorrectaNumero(mensaje)
     ##                                valorIngresar = int(raw_input("Ingrese el valor a ingresar X:   "))
-                                    usuarioActual.matrizUsuario.ingresarValorMatriz(posX, posY, valorIngresar)
-                                    print "***************************"
-                                    print "      Dato Ingresado       "
-                                    print "***************************"
+                                    seInserto = usuarioActual.matrizUsuario.ingresarValorMatriz(posX, posY, valorIngresar)
+                                    if seInserto == True:
+                                        print "***************************"
+                                        print "      Dato Ingresado       "
+                                        print "***************************"
 
                                 elif opcionEnMatriz == 2:
                                     print "***************************"

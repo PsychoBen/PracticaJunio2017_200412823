@@ -78,12 +78,12 @@ class ColaDeOperaciones:
             cadena = ""
             while aux !=None:
                 if aux == self.primeroCola:
-                    cadena = str(aux.operacion)
+                    cadena = " \" " + str(aux.operacion) +" \" "
                 else:
                     if str(aux.operacion)=="":
                         cadena = cadena
                     else:
-                        cadena = cadena + " -> " + str(aux.operacion)
+                        cadena = cadena + " -> " + " \" " + str(aux.operacion) +" \" "
                 aux = aux.siguienteOperacion
             print cadena
 
@@ -141,6 +141,28 @@ class ColaDeOperaciones:
         cadena = cadena + " -> " + " \"" + self.ultimoCola.operacion +" \""
         archivo.write(cadena)
 
+    def generarListadoPruebas(self, archivo):
+        cadena =""
+        if self.estaVaciaColaOperaciones () == True:
+            print "Cola Vacia"
+        else:
+            aux = self.primeroCola
+            contador = 0
+            texto = ""
+            while aux != self.ultimoCola:
+                texto = str(contador) + "[label= " + " \"" + aux.operacion +" \"" +"]\n"
+                archivo.write(texto)
+                if aux == self.primeroCola:
+                    cadena =  str(contador) +" "
+                else:
+                    cadena = cadena + " -> " + str(contador) +" "
+                contador = contador + 1
+                aux = aux.siguienteOperacion
+        cadena = cadena + " -> " + str(contador + 1) + "\n "
+        archivo.write(cadena)
+        texto = str(contador + 1) + "[label= " + " \"" + self.ultimoCola.operacion +" \"" +"]\n"
+        archivo.write(texto)
+
     def generarListadoCompleto(self, archivo):
         cadena =""
         if self.estaVaciaColaOperaciones () == True:
@@ -164,7 +186,8 @@ class ColaDeOperaciones:
             fileNameArchivo = self.Path + "colaOperacionesUsuario.dot"
             archivoColaOperaciones = open(fileNameArchivo, 'w')
             archivoColaOperaciones.write(("digraph ColaOperacionesUsuario { rankdir=LR \n node[shape=rectangle color=blue fillcolor = cadetblue3 style=\"rounded,filled\"];\n"))
-            self.generarListado(archivoColaOperaciones)
+##            self.generarListado(archivoColaOperaciones)
+            self.generarListadoPruebas(archivoColaOperaciones)
             archivoColaOperaciones.write("\n label=\"Cola operaciones del usuario: "+ padre + " \"  \n")
             archivoColaOperaciones.write('}')
             archivoColaOperaciones.close()
