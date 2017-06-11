@@ -10,6 +10,10 @@
 #-------------------------------------------------------------------------------
 
 import NodoOperacion
+import subprocess
+import os.path
+import errno
+import os
 
 class ColaDeOperaciones:
 
@@ -17,6 +21,7 @@ class ColaDeOperaciones:
         self.primeroCola = None
         self.ultimoCola = None
         self.tamanioCola = 0
+        self.Path="C:/Proyecto/EDDVacasJunio/"
 
     ## inserta al final de la cola
     def insertaElementoColaOperaciones(self, operacion):
@@ -93,6 +98,83 @@ class ColaDeOperaciones:
                 print cadena
                 contador = contador + 1
                 aux = aux.siguienteOperacion
+
+    def crearCarpeta(self):
+        try: os.makedirs(self.Path)
+        except OSError as exception:
+            if exception.errno != errno.EEXIST:
+                raise
+
+    def crearArchivoDotCompleto(self, padre):
+        if(self.estaVaciaColaOperaciones==True):
+            print "No crear"
+        else:
+            self.crearCarpeta()
+            fileNameArchivo = self.Path + "colaOperacionesUsuarioCompleto.dot"
+            archivoColaOperaciones = open(fileNameArchivo, 'w')
+            cluster = "Cola_"+ padre
+            archivoColaOperaciones.write(("subgraph ColaOperacionesUsuario { rankdir=LR \n node[shape=rectangle color=blue fillcolor = red style=\"rounded,filled\"];\n"))
+            archivoListadoDobleCircular.write("graph [label=\"Cola operaciones\", labelloc=t, fontsize=10]; \n")
+            self.generarListadoCompleto(archivoColaOperaciones)
+            archivoColaOperaciones.write('}')
+            archivoColaOperaciones.write(padre + " -> " + cluster)
+##            archivoColaOperaciones.close()
+
+    def verImagenCompleto(self):
+        miComandooo = 'cd C:\Program Files (x86)\Graphviz2.38\bin'
+        miComandooo = 'dot -Tgif '+ self.Path+'colaOperacionesUsuarioCompleto.dot -o '+self.Path+'colaOperacionesUsuarioCompleto.jpg'
+        os.system(miComandooo)
+        os.popen(self.Path+'colaOperacionesUsuarioCompleto.jpg')
+
+    def generarListado(self, archivo):
+        cadena =""
+        if self.estaVaciaColaOperaciones () == True:
+            print "Cola Vacia"
+        else:
+            aux = self.primeroCola
+            while aux != self.ultimoCola:
+                if aux == self.primeroCola:
+                    cadena = " \"" + aux.operacion +" \""
+                else:
+                    cadena = cadena + " -> " + " \""+ aux.operacion +" \""
+                aux = aux.siguienteOperacion
+        cadena = cadena + " -> " + " \"" + self.ultimoCola.operacion +" \""
+        archivo.write(cadena)
+
+    def generarListadoCompleto(self, archivo):
+        cadena =""
+        if self.estaVaciaColaOperaciones () == True:
+            print "Cola Vacia"
+        else:
+            aux = self.primeroCola
+            while aux != self.ultimoCola:
+                if aux == self.primeroCola:
+                    cadena = " \"" + aux.operacion +" \""
+                else:
+                    cadena = cadena + " -> " + " \""+ aux.operacion +" \""
+                aux = aux.siguienteOperacion
+        cadena = cadena + " -> " + " \"" + self.ultimoCola.operacion +" \""
+        archivo.write(cadena)
+
+    def crearArchivoDot(self , padre):
+        if(self.estaVaciaColaOperaciones==True):
+            print "No crear"
+        else:
+            self.crearCarpeta()
+            fileNameArchivo = self.Path + "colaOperacionesUsuario.dot"
+            archivoColaOperaciones = open(fileNameArchivo, 'w')
+            archivoColaOperaciones.write(("digraph ColaOperacionesUsuario { rankdir=LR \n node[shape=rectangle color=blue fillcolor = cadetblue3 style=\"rounded,filled\"];\n"))
+            self.generarListado(archivoColaOperaciones)
+            archivoColaOperaciones.write("\n label=\"Cola operaciones del usuario: "+ padre + " \"  \n")
+            archivoColaOperaciones.write('}')
+            archivoColaOperaciones.close()
+
+    def verImagenCola(self):
+        miComandooo = 'cd C:\Program Files (x86)\Graphviz2.38\bin'
+        miComandooo = 'dot -Tgif '+ self.Path+'colaOperacionesUsuario.dot -o '+self.Path+'colaOperacionesUsuario.jpg'
+        os.system(miComandooo)
+        os.popen(self.Path+'colaOperacionesUsuario.jpg')
+
 
 
 

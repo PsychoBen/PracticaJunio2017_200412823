@@ -40,6 +40,7 @@ def main():
     miListaUsuarios.insertarUsuarioFinal("papa", "a1")
     miListaUsuarios.insertarUsuarioFinal("pepe", "a2")
     miListaUsuarios.insertarUsuarioFinal("pepito", "pepito666")
+    miListaUsuarios.insertarUsuarioFinal("a", "a")
     miListaUsuarios.insertarUsuarioFinal("pipi", "a4")
     miListaUsuarios.insertarUsuarioFinal("popo", "a5")
     miListaUsuarios.insertarUsuarioFinal("pupu", "a6")
@@ -69,139 +70,157 @@ def main():
 
                     if opcionUsuario == 1:
                         pathArchivo = raw_input("Ingrese el nombre del archivo:   ")
-                        miMatriz = Matriz.Matriz()
-                        miArchivo = Archivos.Archivos()
-                        contenidoArchivo = miArchivo.leerArchivoEntradaCompleto(pathArchivo)
-                        filaColumna = miArchivo.obtenerTamanioMatriz(contenidoArchivo)
-                        dimensionesMatriz = filaColumna.split(",")
-                        filas = int(dimensionesMatriz[0])
-                        columnas = int(dimensionesMatriz[1])
-                        if usuarioActual.archivoCargado == False:
-                            miMatriz.crearMatriz(filas, columnas)
-                            usuarioActual.archivoCargado = True
-                            usuarioActual.matrizUsuario = miMatriz
-                            usuarioActual.matrizTranspuesta = miMatriz.operarMatrizTranspuesta()
+                        ruta = os.path.dirname(os.path.abspath(__file__))
+                        ruta = ruta +"\\" + pathArchivo
+                        print ruta
+                        if os.path.isfile(ruta):
+                            miMatriz = Matriz.Matriz()
+                            miArchivo = Archivos.Archivos()
+                            contenidoArchivo = miArchivo.leerArchivoEntradaCompleto(pathArchivo)
+                            filaColumna = miArchivo.obtenerTamanioMatriz(contenidoArchivo)
+                            dimensionesMatriz = filaColumna.split(",")
+                            filas = int(dimensionesMatriz[0])
+                            columnas = int(dimensionesMatriz[1])
+                            if usuarioActual.archivoCargado == False:
+                                miMatriz.crearMatriz(filas, columnas)
+                                usuarioActual.archivoCargado = True
+                                usuarioActual.matrizUsuario = miMatriz
+                                usuarioActual.matrizTranspuesta = miMatriz.operarMatrizTranspuesta()
+                                print "***************************"
+                                print "       Matriz Creada       "
+                                print "***************************"
+                            else:
+                                print "*********************************************"
+                                print "    Ignorando la Matriz del Nuevo Archivo    "
+                                print "*********************************************"
+                            operaciones= miArchivo.obtenerOperacionesDesdeArchivo(contenidoArchivo)
+                            listadoOperaciones = operaciones.split(",")
+                            cadActual = ""
+                            for opera in listadoOperaciones:
+                                operacionChain = ""
+                                cadActual = opera
+                                cadActual = cadActual.split()
+                                for cd in cadActual:
+                                    if operacionChain=="":
+                                        operacionChain = cd
+                                    else:
+                                        operacionChain = operacionChain + " " +cd
+                                if operacionChain != "":
+                                    usuarioActual.colaOperacionesUser.insertaElementoColaOperaciones(operacionChain)
                             print "***************************"
-                            print "       Matriz Creada       "
+                            print "   Operacion Ingresada     "
+                            print "***************************"
+                            print "***************************"
+                            print "       Archivo Leido       "
                             print "***************************"
                         else:
-                            print "*********************************************"
-                            print "    Ignorando la Matriz del Nuevo Archivo    "
-                            print "*********************************************"
-                        operaciones= miArchivo.obtenerOperacionesDesdeArchivo(contenidoArchivo)
-                        listadoOperaciones = operaciones.split(",")
-                        cadActual = ""
-                        for opera in listadoOperaciones:
-                            operacionChain = ""
-                            cadActual = opera
-                            cadActual = cadActual.split()
-                            for cd in cadActual:
-                                if operacionChain=="":
-                                    operacionChain = cd
-                                else:
-                                    operacionChain = operacionChain + " " +cd
-                            if operacionChain != "":
-                                usuarioActual.colaOperacionesUser.insertaElementoColaOperaciones(operacionChain)
-                        print "***************************"
-                        print "   Operacion Ingresada     "
-                        print "***************************"
-                        print "***************************"
-                        print "       Archivo Leido       "
-                        print "***************************"
+                            print "***************************"
+                            print "   El archivo no existe    "
+                            print "***************************"
+
 
                     elif opcionUsuario == 2:
-                        print "***************************"
-                        print "     Resolver Operacion    "
-                        print "***************************"
-                        opcionRevolverOperaciones = 0
-                        while (opcionRevolverOperaciones!=2):
-                            opcionRevolverOperaciones = menu.menu_operacion()
-                            if opcionRevolverOperaciones == 1:
-                                if usuarioActual.colaOperacionesUser.tamanioCola > 0:
-##                                    print "resolviendo siguiente Operacion"
-                                    operacionActual = ""
-                                    nodoOperacionActual = usuarioActual.colaOperacionesUser.obtenerElementoEliminarElementoColaOperaciones()
-    ##                                operacionActual = usuarioActual.colaOperacionesUser.eliminarElementoColaOperaciones()
-                                    operacionActual = nodoOperacionActual.operacion
-                                    operacionActual = operacionActual.split()
-                                    print nodoOperacionActual.operacion
-                                    for elemento in operacionActual:
-                                        if elemento !="+" and elemento !="-" and elemento !="*":
-                                            datoo = int(elemento)
-                                            nodoOperacionActual.pilaOperacion.insertarNodoPilaOperacionesFinal(datoo, elemento)
-                                        else:
-    ##                                        datoo = int(elemento)
-                                            nodoOperacionActual.pilaOperacion.insertarNodoPilaOperacionesFinal(0, elemento)
-                                    print "******************************************"
-                                    resulFinal = 0
-                                    print "Al realizar la operacion: " + nodoOperacionActual.operacion
-                                    resulFinal = nodoOperacionActual.pilaOperacion.primeroPila.valor
-                                    print "El resultado es: " + str(resulFinal)
-                                    print "******************************************"
-                                else:
-                                    print "***************************"
-                                    print "     No hay Operaciones    "
-                                    print "***************************"
-                        print "***************************"
-                        print "Regresando a menu Operacion"
-                        print "***************************"
-
+                        if usuarioActual.archivoCargado ==True:
+                            print "***************************"
+                            print "     Resolver Operacion    "
+                            print "***************************"
+                            opcionRevolverOperaciones = 0
+                            while (opcionRevolverOperaciones!=2):
+                                opcionRevolverOperaciones = menu.menu_operacion()
+                                if opcionRevolverOperaciones == 1:
+                                    if usuarioActual.colaOperacionesUser.tamanioCola > 0:
+    ##                                    print "resolviendo siguiente Operacion"
+                                        operacionActual = ""
+                                        nodoOperacionActual = usuarioActual.colaOperacionesUser.obtenerElementoEliminarElementoColaOperaciones()
+        ##                                operacionActual = usuarioActual.colaOperacionesUser.eliminarElementoColaOperaciones()
+                                        operacionActual = nodoOperacionActual.operacion
+                                        operacionActual = operacionActual.split()
+                                        print nodoOperacionActual.operacion
+                                        for elemento in operacionActual:
+                                            if elemento !="+" and elemento !="-" and elemento !="*":
+                                                datoo = int(elemento)
+                                                nodoOperacionActual.pilaOperacion.insertarNodoPilaOperacionesFinal(datoo, elemento)
+                                            else:
+        ##                                        datoo = int(elemento)
+                                                nodoOperacionActual.pilaOperacion.insertarNodoPilaOperacionesFinal(0, elemento)
+                                        print "******************************************"
+                                        resulFinal = 0
+                                        print "Al realizar la operacion: " + nodoOperacionActual.operacion
+                                        resulFinal = nodoOperacionActual.pilaOperacion.primeroPila.valor
+                                        print "El resultado es: " + str(resulFinal)
+                                        print "******************************************"
+                                    else:
+                                        print "***************************"
+                                        print "     No hay Operaciones    "
+                                        print "***************************"
+                            print "***************************"
+                            print "Regresando a menu Operacion"
+                            print "***************************"
+                        else:
+                            print "*******************************"
+                            print "   Cargue primero un archivo   "
+                            print "*******************************"
                     elif opcionUsuario == 3:
-                        print "operar matriz"
-                        opcionEnMatriz = 0
-                        while (opcionEnMatriz !=5):
-                            opcionEnMatriz = menu.menu_matriz()
+                        if usuarioActual.archivoCargado ==True:
+                            print "operar matriz"
+                            opcionEnMatriz = 0
+                            while (opcionEnMatriz !=5):
+                                opcionEnMatriz = menu.menu_matriz()
 
-                            if opcionEnMatriz == 1:
-                                print "***************************"
-                                print " Ingresando dato en matriz "
-                                print "***************************"
-                                mensaje = "Ingrese posicion X:   "
-                                posX = validarEntradaCorrectaNumero(mensaje)
-                                while posX == 999:
+                                if opcionEnMatriz == 1:
+                                    print "***************************"
+                                    print " Ingresando dato en matriz "
+                                    print "***************************"
                                     mensaje = "Ingrese posicion X:   "
                                     posX = validarEntradaCorrectaNumero(mensaje)
-##                                posX = int(raw_input("Ingrese posicion X:   "))
-                                mensaje = "Ingrese posicion Y:   "
-                                posY = validarEntradaCorrectaNumero(mensaje)
-                                while posY == 999:
+                                    while posX == 999:
+                                        mensaje = "Ingrese posicion X:   "
+                                        posX = validarEntradaCorrectaNumero(mensaje)
+    ##                                posX = int(raw_input("Ingrese posicion X:   "))
                                     mensaje = "Ingrese posicion Y:   "
                                     posY = validarEntradaCorrectaNumero(mensaje)
-##                                posY = int(raw_input("Ingrese posicion Y:   "))
-                                mensaje = "Ingrese el valor a ingresar X:   "
-                                valorIngresar = validarEntradaCorrectaNumero(mensaje)
-                                while posX == 999:
+                                    while posY == 999:
+                                        mensaje = "Ingrese posicion Y:   "
+                                        posY = validarEntradaCorrectaNumero(mensaje)
+    ##                                posY = int(raw_input("Ingrese posicion Y:   "))
                                     mensaje = "Ingrese el valor a ingresar X:   "
                                     valorIngresar = validarEntradaCorrectaNumero(mensaje)
-##                                valorIngresar = int(raw_input("Ingrese el valor a ingresar X:   "))
-                                usuarioActual.matrizUsuario.ingresarValorMatriz(posX, posY, valorIngresar)
-                                print "***************************"
-                                print "      Dato Ingresado       "
-                                print "***************************"
+                                    while posX == 999:
+                                        mensaje = "Ingrese el valor a ingresar X:   "
+                                        valorIngresar = validarEntradaCorrectaNumero(mensaje)
+    ##                                valorIngresar = int(raw_input("Ingrese el valor a ingresar X:   "))
+                                    usuarioActual.matrizUsuario.ingresarValorMatriz(posX, posY, valorIngresar)
+                                    print "***************************"
+                                    print "      Dato Ingresado       "
+                                    print "***************************"
 
-                            elif opcionEnMatriz == 2:
-                                print "***************************"
-                                print "     Operar transpuesta    "
-                                print "***************************"
-                                usuarioActual.matrizUsuario.operarMatrizTranspuesta()
-                                print "********************************"
+                                elif opcionEnMatriz == 2:
+                                    print "***************************"
+                                    print "     Operar transpuesta    "
+                                    print "***************************"
+                                    usuarioActual.matrizUsuario.operarMatrizTranspuesta()
+                                    print "********************************"
 
-                            elif opcionEnMatriz == 3:
-                                print "*****************************"
-                                print "   Mostrar matriz original   "
-                                print "*****************************"
-                                usuarioActual.matrizUsuario.mostrarMatrizOriginal()
-                                print "********************************"
+                                elif opcionEnMatriz == 3:
+                                    print "*****************************"
+                                    print "   Mostrar matriz original   "
+                                    print "*****************************"
+                                    usuarioActual.matrizUsuario.mostrarMatrizOriginal()
+                                    print "********************************"
 
-                            elif opcionEnMatriz == 4:
-                                print "********************************"
-                                print "   Mostrar Matriz transpuesta   "
-                                print "********************************"
-                                usuarioActual.matrizUsuario.mostrarMatrizTranspuesta()
-                                print "********************************"
-                        print "***************************"
-                        print "Regresando a menu usuario"
-                        print "***************************"
+                                elif opcionEnMatriz == 4:
+                                    print "********************************"
+                                    print "   Mostrar Matriz transpuesta   "
+                                    print "********************************"
+                                    usuarioActual.matrizUsuario.mostrarMatrizTranspuesta()
+                                    print "********************************"
+                            print "***************************"
+                            print "Regresando a menu usuario"
+                            print "***************************"
+                        else:
+                            print "*******************************"
+                            print "   Cargue primero un archivo   "
+                            print "*******************************"
 
                     elif opcionUsuario == 4:
                         print "*****************************"
@@ -209,6 +228,9 @@ def main():
                         print "*****************************"
                         cadenaAdelante = miListaUsuarios.mostrarListadoNicksAdelante()
                         cadenaAtras = miListaUsuarios.mostrarListadoNicksAtras()
+                        miListaUsuarios.crearArchivoDot()
+                        miListaUsuarios.verImagen()
+##                        miListaUsuarios.verImagen2()
                         print cadenaAdelante
                         print cadenaAtras
                         print "************************************************"
@@ -219,6 +241,9 @@ def main():
                         print "*****************************"
                         usuarioActual.colaOperacionesUser.mostrarColaDeOperaciones()
                         usuarioActual.colaOperacionesUser.mostrarColaDeOperacionesOtra()
+                        if usuarioActual.colaOperacionesUser.primeroCola != None:
+                            usuarioActual.colaOperacionesUser.crearArchivoDot(usuarioActual.nombreUsuario)
+                            usuarioActual.colaOperacionesUser.verImagenCola()
                         print "********************************************************"
 
                 sessionIniciada == False

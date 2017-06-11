@@ -1,0 +1,20 @@
+<archivo>
+	<matriz>
+		<x> 6 </x>
+		<y> 8 </y>
+	</matriz>
+	<operaciones>
+		<operacion>
+			10 2 * 4 * 7 + 5 -
+		</operacion>
+		<operacion>
+			4 2 6 * 4 + 2 - 1 +
+		</operacion>
+		<operacion>
+			2 6 - 8 *
+		</operacion>
+		<operacion>
+			30 4 + 9 5 - +
+		</operacion>
+	</operaciones>
+</archivo>

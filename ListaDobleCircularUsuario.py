@@ -186,20 +186,76 @@ class ListaDobleCircularUsuario:
         return cadena
 
     def crearArchivoDot(self):
-        self.crearCarpeta()
-        fileNameArchivo = self.Path + "listadoDobleCircularUsuarios.dot"
-        archivoListadoDobleCircular = open(fileNameArchivo, 'w')
-        archivoListadoDobleCircular.write(("digraph Arbol {node [shape=rectangle];\n"))
-        self.generarListado(archivoListadoDobleCircular)
-        archivoListadoDobleCircular.write('}')
-        archivoListadoDobleCircular.close()
+        if(self.estaVacia==True):
+            print "No crear"
+        else:
+            self.crearCarpeta()
+            fileNameArchivo = self.Path + "listadoDobleCircularUsuarios.dot"
+            archivoListadoDobleCircular = open(fileNameArchivo, 'w')
+            archivoListadoDobleCircular.write(("digraph ListaDobleCircular { rankdir=LR \n node[shape=rectangle color=blue fillcolor = red style=\"rounded,filled\"];\n"))
+            self.generarListado(archivoListadoDobleCircular)
+            archivoListadoDobleCircular.write(" \n label=\"Listado Doble Circular Usuarios\" \n")
+            archivoListadoDobleCircular.write('}')
+            archivoListadoDobleCircular.close()
 
     def generarListado(self, archivo):
-        print "ssss"
+        cadena =""
+        if self.estaVacia () == True:
+            print "Lista Vacia"
+        else:
+            aux = self.primero
+
+            while aux != self.ultimo:
+                if aux == self.primero:
+                    cadena = aux.nombreUsuario
+                else:
+                    cadena = cadena + " -> " + aux.nombreUsuario
+                aux = aux.siguiente
+        cadena = cadena + " -> " + self.ultimo.nombreUsuario
+        cadena = cadena + " -> " + self.primero.nombreUsuario + " \n"
+        archivo.write(cadena)
+        cadena =""
+        if self.estaVacia () == True:
+            print "Lista Vacia"
+        else:
+            aux = self.ultimo
+            while aux != self.primero:
+                if aux == self.ultimo:
+                    cadena = aux.nombreUsuario
+                else:
+                    cadena = cadena + " -> " + aux.nombreUsuario
+                aux = aux.anterior
+        cadena = cadena + " -> " + self.primero.nombreUsuario
+        cadena = cadena + " -> " + self.ultimo.nombreUsuario + " \n"
+        archivo.write(cadena)
 
     def verImagen(self):
+        miComandooo = 'cd C:\Program Files (x86)\Graphviz2.38\bin'
         miComandooo = 'dot -Tgif '+ self.Path+'listadoDobleCircularUsuarios.dot -o '+self.Path+'listadoDobleCircularUsuarios.jpg'
         os.system(miComandooo)
+        os.popen(self.Path+'listadoDobleCircularUsuarios.jpg')
+
+    def verImagenCompleta(self):
+        miComandooo = 'cd C:\Program Files (x86)\Graphviz2.38\bin'
+        miComandooo = 'dot -Tgif '+ self.Path+'listadoDobleCircularUsuariosCompleta.dot -o '+self.Path+'listadoDobleCircularUsuariosCompleta.jpg'
+        os.system(miComandooo)
+        os.popen(self.Path+'listadoDobleCircularUsuariosCompleta.jpg')
+
+    def verImagen2(self):
+        outfd = open(self.Path+ 'archivo_out_vuelo', 'w+')
+        errfd = open(self.Path+'archivo_err_vuelo', 'w+')
+        miComando= ['dot','-Tgif',self.Path+'listadoDobleCircularUsuarios.dot','-o',self.Path+'listadoDobleCircularUsuarios.jpg']
+        subprocess.call(miComando, stdout=outfd, stderr=errfd)
+        outfd.close()
+        errfd.close()
+        fd = open(self.Path+ 'archivo_out_vuelo', 'r')
+        output = fd.read()
+        fd.close()
+        fd = open(self.Path+'archivo_err_vuelo', 'r')
+        err = fd.read()
+        fd.close()
+        print 'stdout: %s\n' % output
+        print 'stderr: %s' % err
         os.popen(self.Path+'listadoDobleCircularUsuarios.jpg')
 
 
