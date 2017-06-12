@@ -35,12 +35,12 @@ class Matriz:
                 self.transpuesta[col][fil] = -555
 
     def mostrarMatrizOriginal(self):
-        print "************  Matriz Original   **************"
+##        print "************  Matriz Original   **************"
         for fiila in self.matriz:
             print fiila
 
     def mostrarMatrizTranspuesta(self):
-        print "************  transpuesta   **************"
+##        print "************  transpuesta   **************"
         for col in range(self.columnas):
             for fil in range(self.filas):
                 self.transpuesta[col][fil] = self.matriz[fil][col]
@@ -48,7 +48,7 @@ class Matriz:
             print fiilla
 
     def operarMatrizTranspuesta(self):
-        print "************  transpuesta   **************"
+##        print "************  transpuesta   **************"
         for col in range(self.columnas):
             for fil in range(self.filas):
                 self.transpuesta[col][fil] = self.matriz[fil][col]

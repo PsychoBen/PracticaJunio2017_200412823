@@ -37,13 +37,15 @@ def main():
 ##menu funciona desde aqui
 
     miListaUsuarios = ListaDobleCircularUsuario.ListaDobleCircularUsuario()
-    miListaUsuarios.insertarUsuarioFinal("papa", "a1")
-    miListaUsuarios.insertarUsuarioFinal("pepe", "a2")
-    miListaUsuarios.insertarUsuarioFinal("pepito", "pepito666")
-    miListaUsuarios.insertarUsuarioFinal("a", "a")
-    miListaUsuarios.insertarUsuarioFinal("pipi", "a4")
-    miListaUsuarios.insertarUsuarioFinal("popo", "a5")
-    miListaUsuarios.insertarUsuarioFinal("pupu", "a6")
+    miListaUsuarios.insertarUsuarioFinal("Alejandra", "Alejandra")
+    miListaUsuarios.insertarUsuarioFinal("Julissa", "Julissa")
+    miListaUsuarios.insertarUsuarioFinal("Dayanna", "Dayanna")
+    miListaUsuarios.insertarUsuarioFinal("Sindy", "Sindy")
+    miListaUsuarios.insertarUsuarioFinal("Benjamin", "Benjamin")
+    miListaUsuarios.insertarUsuarioFinal("Evelyn", "Evelyn")
+    miListaUsuarios.insertarUsuarioFinal("Elizabeth", "Elizabeth")
+    miListaUsuarios.insertarUsuarioFinal("Vanessa", "Vanessa")
+    miListaUsuarios.insertarUsuarioFinal("Brenda", "Brenda")
 
     sessionIniciada = False
     opcionPrincipal = 0
